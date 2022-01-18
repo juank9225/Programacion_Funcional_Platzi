@@ -11,6 +11,7 @@ public class Streams {
         List<String> courseList = NombresUtils.getList(
                 "FrontEnd",
                 "Backend",
+                "java",
                 "FullStack");
 
         for (String course : courseList){
@@ -25,5 +26,19 @@ public class Streams {
         Stream<Integer> courseLengthStream = coursesStream.map(course -> course.length());
 
         Optional<Integer> longest = courseLengthStream.max((x,y) ->y-x); //recibe una comparacion
+
+        //....................................
+
+        Stream<String> coursesStream2 = courseList.stream();
+
+        addOperator(
+        coursesStream2.map(course -> course+" !!")
+                .filter(course -> course.contains("java"))
+        ).forEach(System.out::println);
+
+    }
+
+    static <T> Stream<T> addOperator(Stream<T> stream){
+        return stream.peek(data -> System.out.println("Dato: "+data));
     }
 }
